@@ -3,13 +3,40 @@
 }
 body {
 	background-color:#780808;
+	font-family:arial, sans-serif;
 }
 a {
 	text-decoration: none;
 	color:white;
 }
-ul, li {
+ul, li{
 	list-style-type:none;
 	margin:0;
 	padding:0;
+}
+input[type="submit"]{
+	background-color:white;
+}
+
+ul {
+	display:flex;
+	width:98%;
+	margin:10px auto;
+	flex-direction:column;
+}
+li {
+	margin-bottom:5px;
+}
+li div {
+	margin-bottom:5px;
+
+}
+@media(min-width:768px){
+	ul {
+		align-items:baseline;
+		flex-direction: row;
+	}
+	li {
+		width:20%;
+	}
 }
