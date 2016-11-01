@@ -33,8 +33,7 @@ $(function() {
                 }
 
                 $("#search-results").append("<li>" + urlbase + urlkey + "' target='_blank'><div>" + title + "</div><img src='" + thumbnail + "' alt='" + title + "' /></a></li>");
-                $('#search-results li').find('a').colorbox();
-
+                
                 $("#query").val("");
             })
 
