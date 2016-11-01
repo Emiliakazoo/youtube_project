@@ -3,7 +3,6 @@ $(function() {
     var items;
     var searchTerm;
     
-
 //---------------------------------------BEGIN getting items from API
 
     function getRequest(searchTerm) {
@@ -34,6 +33,8 @@ $(function() {
                 }
 
                 $("#search-results").append("<li>" + urlbase + urlkey + "' target='_blank'><div>" + title + "</div><img src='" + thumbnail + "' alt='" + title + "' /></a></li>");
+                $('#search-results li').find('a').colorbox();
+
                 $("#query").val("");
             })
 
