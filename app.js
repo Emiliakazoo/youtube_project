@@ -20,20 +20,23 @@ $(function() {
         //-----------------------------------BEGIN parsing
         function gotData(data) {
             items = data;
+            console.log(items);
             $(items.items).each(function(index, value) {
                 var thumbnail = value.snippet.thumbnails.medium.url;
+                var nextpage = value.nextPageToken;
                 var urlkey = value.id.videoId;
                 var kind = value.id.kind;
                 var title = value.snippet.title
                 var urlbase = "<a href='https://www.youtube.com/watch?v=";
+                console.log(nextpage);
 
                 if (kind == "youtube#channel") {
-                    urlbase = "<a href='https://www.youtube.com/user/";
+                    urlbase = "<a class='channel' href='https://www.youtube.com/user/";
                     urlkey = value.snippet.channelTitle;
                 }
 
-                $("#search-results").append("<li>" + urlbase + urlkey + "' target='_blank'><div>" + title + "</div><img src='" + thumbnail + "' alt='" + title + "' /></a></li>");
-                
+                $("#search-results").append("<li>" + urlbase + urlkey + "'><div>" + title + "</div><img src='" + thumbnail + "' alt='" + title + "' /></a></li>");
+                $('#search-results li').find('a').colorbox();
                 $("#query").val("");
             })
 

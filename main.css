@@ -36,6 +36,10 @@ li div {
 	margin-bottom:5px;
 
 }
+
+.channel img {
+	width:145px;
+}
 @media(min-width:768px){
 	ul {
 		align-items:baseline;
@@ -50,6 +54,7 @@ li div {
 		bottom:0;
 	}
 }
+
 @media(min-width:1270px){
 	li {
 		min-height:200px;
