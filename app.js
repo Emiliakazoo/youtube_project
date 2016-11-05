@@ -20,23 +20,31 @@ $(function() {
         //-----------------------------------BEGIN parsing
         function gotData(data) {
             items = data;
-            console.log(items);
+            var nextpage = items.nextPageToken;
+            //console.log(nextpage);
+            //console.log(items);
             $(items.items).each(function(index, value) {
                 var thumbnail = value.snippet.thumbnails.medium.url;
-                var nextpage = value.nextPageToken;
+                var channelId = value.snippet.channelId;
                 var urlkey = value.id.videoId;
                 var kind = value.id.kind;
                 var title = value.snippet.title
-                var urlbase = "<a href='https://www.youtube.com/watch?v=";
-                console.log(nextpage);
+                var urlbase = "class='singleVid' href='https://www.youtube.com/embed/";
+                var urlchannelbase = "https://www.youtube.com/channel/";
 
                 if (kind == "youtube#channel") {
-                    urlbase = "<a class='channel' href='https://www.youtube.com/user/";
+                    urlbase = "href='https://www.youtube.com/user/";
                     urlkey = value.snippet.channelTitle;
                 }
+                if(!nextpage){
+                    $("#nextBunch").hide();
+                }
+                else {
+                    $("#nextBunch").show();
+                }
 
-                $("#search-results").append("<li>" + urlbase + urlkey + "'><div>" + title + "</div><img src='" + thumbnail + "' alt='" + title + "' /></a></li>");
-                $('#search-results li').find('a').colorbox();
+                $("#search-results").append("<li><a " + urlbase + urlkey + "' target='_blank'><div>" + title + "</div><img src='" + thumbnail + "' alt='" + title + "' /></a><br><a class='channel' href='" + urlchannelbase + channelId + "' target='_blank'>More from channel</a></li>");
+                $('#search-results li').find('a.singleVid').colorbox({iframe:true, innerWidth:640, innerHeight:390});
                 $("#query").val("");
             })
 
@@ -60,7 +68,6 @@ $(function() {
         searchTerm = $("#query").val();
         getRequest(searchTerm);
         $("#search-results").empty();
-        console.log(searchTerm);
     })
 
 //---------------------------------------END searching
