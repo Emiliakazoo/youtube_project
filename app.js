@@ -2,6 +2,18 @@ $(function() {
 
     var items;
     var searchTerm;
+    $("#pageTokenPrev").hide();
+    $("#pageTokenNext").hide();
+
+
+    function prevAndNext(prev, next){
+        if(prev) {
+            $("#pageTokenPrev").show();
+        }
+        if(next){
+            $("#pageTokenNext").show();
+        }
+    }
     
 //---------------------------------------BEGIN getting items from API
 
@@ -21,8 +33,12 @@ $(function() {
         function gotData(data) {
             items = data;
             var nextpage = items.nextPageToken;
-            //console.log(nextpage);
-            //console.log(items);
+            var prevpage = items.prevPageToken;
+            $("#pageTokenPrev").val(prevpage);
+            $("#pageTokenNext").val(nextpage);
+            console.log(prevpage);
+            console.log(nextpage);
+            console.log(items);
             $(items.items).each(function(index, value) {
                 var thumbnail = value.snippet.thumbnails.medium.url;
                 var channelId = value.snippet.channelId;
@@ -36,18 +52,13 @@ $(function() {
                     urlbase = "href='https://www.youtube.com/user/";
                     urlkey = value.snippet.channelTitle;
                 }
-                if(!nextpage){
-                    $("#nextBunch").hide();
-                }
-                else {
-                    $("#nextBunch").show();
-                }
 
                 $("#search-results").append("<li><a " + urlbase + urlkey + "' target='_blank'><div>" + title + "</div><img src='" + thumbnail + "' alt='" + title + "' /></a><br><a class='channel' href='" + urlchannelbase + channelId + "' target='_blank'>More from channel</a></li>");
                 $('#search-results li').find('a.singleVid').colorbox({iframe:true, innerWidth:640, innerHeight:390});
                 $("#query").val("");
             })
 
+            prevAndNext(prevpage, nextpage);
 
         }
 
